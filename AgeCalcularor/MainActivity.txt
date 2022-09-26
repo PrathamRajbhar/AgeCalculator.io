@@ -1,0 +1,73 @@
+package com.android.agecalculatorapp;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Context;
+import android.os.Bundle;
+import android.os.Vibrator;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+import java.util.Calendar;
+import android.widget.Toast;
+
+public class MainActivity extends AppCompatActivity {
+
+    private EditText day,month,year;
+    private Button ClickBtn;
+    private TextView pday;
+    private TextView pmonth;
+    private TextView pyear;
+    private TextView FinalAge;
+    private TextView upcomming;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+
+        day = findViewById(R.id.TextNumber);
+        month = findViewById(R.id.textNumber3);
+        year = findViewById(R.id.textNumber2);
+        ClickBtn = findViewById(R.id.button);
+        pyear = findViewById(R.id.textView4);
+        pmonth = findViewById(R.id.textView5);
+        pday = findViewById(R.id.textView6);
+        FinalAge = findViewById(R.id.textView7);
+//        FinalAge.setVisibility(View.GONE);
+        ClickBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int cday,cmonth,cyear;
+                Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+                v.vibrate(1000);
+                Calendar cal = Calendar.getInstance();
+                cday = cal.get(Calendar.DATE);
+                cmonth = cal.get(Calendar.MONTH);
+                cyear = cal.get(Calendar.YEAR);
+
+                String first = day.getText().toString();
+                int fday = Integer.parseInt(first);
+
+                String second = month.getText().toString();
+                int sMonth = Integer.parseInt(second);
+
+                String Third = year.getText().toString();
+                int tYear = Integer.parseInt(Third);
+
+                int day = cday - fday;
+                pday.setText("Day : "+day);
+
+                int month = cmonth - sMonth;
+                pmonth.setText("Month : "+month);
+
+
+                int age = cyear - tYear ;
+                pyear.setText("Year is : "+age);
+                FinalAge.setText("Age : "+age);
+            }
+        });
+    }
+}
